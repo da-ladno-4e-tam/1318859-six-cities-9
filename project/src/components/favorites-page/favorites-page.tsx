@@ -1,23 +1,13 @@
 import FavoritesLocationItem from '../favorites-location-item/favorites-location-item';
 import FavoritesFooter from '../favorites-footer/favorites-footer';
-import UserNavigation from '../user-navigation/user-navigation';
+import Header from '../header/header';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 function FavoritesPage(): JSX.Element {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <UserNavigation/>
-          </div>
-        </div>
-      </header>
+      <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={AppRoute.Favorites}/>
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

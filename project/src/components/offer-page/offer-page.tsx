@@ -2,24 +2,14 @@ import OfferOtherPlaces from '../offer-other-places/offer-other-places';
 import OfferReviews from '../offer-reviews/offer-reviews';
 import OfferHost from '../offer-host/offer-host';
 import OfferFeatures from '../offer-features/offer-features';
-import UserNavigation from '../user-navigation/user-navigation';
+import Header from '../header/header';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 function OfferPage(): JSX.Element {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <UserNavigation/>
-          </div>
-        </div>
-      </header>
+      <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={AppRoute.Room}/>
 
       <main className="page__main page__main--property">
         <section className="property">
