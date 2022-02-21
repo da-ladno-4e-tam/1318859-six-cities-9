@@ -6,18 +6,20 @@ import PrivateRoute from '../private-route/private-route';
 import FavoritesPage from '../favorites-page/favorites-page';
 import OfferPage from '../offer-page/offer-page';
 import NotFoundPage from '../not-found-page/not-found-page';
+import {Offers} from '../../types/offers';
 
 type AppScreenProps = {
   placesToStay: number;
+  offers: Offers;
 }
 
-function App({placesToStay}: AppScreenProps): JSX.Element {
+function App({placesToStay, offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage placesToStay={placesToStay}/>}
+          element={<MainPage placesToStay={placesToStay} offers={offers}/>}
         />
         <Route
           path={AppRoute.SignIn}

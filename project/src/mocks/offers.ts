@@ -1,6 +1,6 @@
-import {Offer} from '../types/offer';
+import {Offers} from '../types/offers';
 
-export const offers: Offer[] = [
+export const offers: Offers = [
   {
     'bedrooms': 3,
     'city': {
@@ -16,7 +16,7 @@ export const offers: Offer[] = [
       'Heating',
     ],
     'host': {
-      'avatarUrl': 'img/3.png',
+      'avatarUrl': 'https://i.pravatar.cc/128',
       'id': 3,
       'isPro': true,
       'name': 'Angelina',
@@ -33,7 +33,7 @@ export const offers: Offer[] = [
       'zoom': 8,
     },
     'maxAdults': 4,
-    'previewImage': 'img/1.png',
+    'previewImage': 'https://loremflickr.com/260/200',
     'price': 120,
     'rating': 4.8,
     'title': 'Beautiful & luxurious studio at great location',
@@ -55,7 +55,7 @@ export const offers: Offer[] = [
       'Good 2',
     ],
     'host': {
-      'avatarUrl': 'img/2.png',
+      'avatarUrl': 'https://i.pravatar.cc/128',
       'id': 2,
       'isPro': true,
       'name': 'Toma',
@@ -73,7 +73,7 @@ export const offers: Offer[] = [
       'zoom': 8,
     },
     'maxAdults': 3,
-    'previewImage': 'img/2.png',
+    'previewImage': 'https://loremflickr.com/260/200',
     'price': 100,
     'rating': 4.6,
     'title': 'Norm',
@@ -96,7 +96,7 @@ export const offers: Offer[] = [
       'Good 2',
     ],
     'host': {
-      'avatarUrl': 'img/1.png',
+      'avatarUrl': 'https://i.pravatar.cc/128',
       'id': 1,
       'isPro': false,
       'name': 'Amanda',
@@ -115,7 +115,7 @@ export const offers: Offer[] = [
       'zoom': 8,
     },
     'maxAdults': 2,
-    'previewImage': 'img/3.png',
+    'previewImage': 'https://loremflickr.com/260/200',
     'price': 80,
     'rating': 3.6,
     'title': 'Norm place',
@@ -139,7 +139,7 @@ export const offers: Offer[] = [
       'Good 3',
     ],
     'host': {
-      'avatarUrl': 'img/4.png',
+      'avatarUrl': 'https://i.pravatar.cc/128',
       'id': 4,
       'isPro': true,
       'name': 'Andrey',
@@ -159,7 +159,7 @@ export const offers: Offer[] = [
       'zoom': 8,
     },
     'maxAdults': 20,
-    'previewImage': 'img/4.png',
+    'previewImage': 'https://loremflickr.com/260/200',
     'price': 200,
     'rating': 5,
     'title': 'Great place',
