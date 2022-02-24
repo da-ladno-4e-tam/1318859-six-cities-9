@@ -47,7 +47,7 @@ export const offers: Offers = [
         'longitude': 7.895168,
         'zoom': 10,
       },
-      'name': 'Vena',
+      'name': 'Paris',
     },
     'description': 'Прикольное местечко.',
     'goods': [
@@ -129,7 +129,7 @@ export const offers: Offers = [
         'longitude': 27.895168,
         'zoom': 10,
       },
-      'name': 'Omsk',
+      'name': 'Dusseldorf',
     },
     'description': 'Офигенное место.',
     'goods': [

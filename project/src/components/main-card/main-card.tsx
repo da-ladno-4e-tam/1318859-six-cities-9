@@ -1,15 +1,24 @@
 import {Offer} from '../../types/offers';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 type MainCardProps = {
   offer: Offer;
+  onMouseEnterHandler(offer: Offer): void;
+  onMouseLeaveHandler(): void;
 }
 
-function MainCard({offer}: MainCardProps): JSX.Element {
+function MainCard({offer, onMouseEnterHandler, onMouseLeaveHandler}: MainCardProps): JSX.Element {
   const bookmarkActiveClass = offer.isFavorite ? 'place-card__bookmark-button--active' : '';
   const ratingWidth = String(100 * offer.rating / 5);
 
   return (
-    <article key={offer.id} className="cities__place-card place-card">
+    <article
+      key={offer.id}
+      className="cities__place-card place-card"
+      onMouseEnter={() => onMouseEnterHandler(offer)}
+      onMouseLeave={() => onMouseLeaveHandler()}
+    >
       {offer.isPremium
         ?
         <div className="place-card__mark">
@@ -17,9 +26,9 @@ function MainCard({offer}: MainCardProps): JSX.Element {
         </div>
         : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`${AppRoute.Room}${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -31,7 +40,7 @@ function MainCard({offer}: MainCardProps): JSX.Element {
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">{offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -41,7 +50,7 @@ function MainCard({offer}: MainCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={`${AppRoute.Room}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
