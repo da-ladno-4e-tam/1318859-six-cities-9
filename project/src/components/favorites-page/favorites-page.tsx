@@ -3,7 +3,7 @@ import FavoritesFooter from '../favorites-footer/favorites-footer';
 import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Offers} from '../../types/offers';
-import {cityNames} from '../../const';
+import {CITY_NAMES} from '../../const';
 
 type FavoritesPageProps = {
   offers: Offers;
@@ -20,7 +20,7 @@ function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {cityNames.map((cityName) => <FavoritesLocationItem key={cityName} cityName={cityName} offers={offers.filter((offer) => offer.city.name === cityName)}/>)}
+              {CITY_NAMES.map((cityName) => <FavoritesLocationItem key={cityName} cityName={cityName} offers={offers.filter((offer) => offer.city.name === cityName)}/>)}
             </ul>
           </section>
         </div>

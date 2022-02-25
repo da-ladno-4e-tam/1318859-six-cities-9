@@ -11,5 +11,5 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-export const ratings = ['5', '4', '3', '2', '1'];
+export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const RATINGS = ['5', '4', '3', '2', '1'];

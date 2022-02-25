@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {ratings} from '../../const';
+import {RATINGS} from '../../const';
 
 function CommentForm(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ function CommentForm(): JSX.Element {
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratings.map((rating) => (
+        {RATINGS.map((rating) => (
           <>
             <input onChange={fieldChangeHandle} className="form__rating-input visually-hidden" name="rating" value={rating} id={`${rating}-stars`} type="radio" checked={formData.rating === rating}/>
             <label htmlFor={`${rating}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
