@@ -1,18 +1,18 @@
 import {Offer, Offers} from '../../types/offers';
 import MainCard from '../main-card/main-card';
-import {useState} from 'react';
 
 type MainCardListProps = {
   offers: Offers;
+  onListItemMouseEnterHandler(offer: Offer): void;
+  onListItemMouseLeaveHandler(): void;
 }
 
-function MainCardsList({offers}: MainCardListProps): JSX.Element {
-  const [, setActiveCard] = useState<Offer | null>(null);
+function MainCardsList({offers, onListItemMouseEnterHandler, onListItemMouseLeaveHandler}: MainCardListProps): JSX.Element {
   const onMouseEnterHandler = (offer: Offer) => {
-    setActiveCard(offer);
+    onListItemMouseEnterHandler(offer);
   };
   const onMouseLeaveHandler = () => {
-    setActiveCard(null);
+    onListItemMouseLeaveHandler();
   };
 
   return (

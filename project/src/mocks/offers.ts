@@ -287,7 +287,7 @@ export const offers: Offers = [
     'isPremium': true,
     'location': {
       'latitude': 52.3909553943508,
-      'longitude': 4.929309666406198,
+      'longitude': 4.919309666406198,
       'zoom': 8,
     },
     'maxAdults': 20,

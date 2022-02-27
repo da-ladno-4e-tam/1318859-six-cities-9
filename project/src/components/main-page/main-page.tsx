@@ -1,9 +1,10 @@
 import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Offers} from '../../types/offers';
+import {Offer, Offers} from '../../types/offers';
 import MainCardsList from '../main-cards-list/main-cards-list';
 import {CITY} from '../../mocks/city';
 import Map from '../map/map';
+import {useState} from 'react';
 
 type MainPageProps = {
   placesToStay: number;
@@ -11,6 +12,14 @@ type MainPageProps = {
 }
 
 function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+
+  const onListItemMouseEnterHandler = (offer: Offer) => {
+    setActiveOffer(offer);
+  };
+  const onListItemMouseLeaveHandler = () => {
+    setActiveOffer(null);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -74,13 +83,13 @@ function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <MainCardsList offers={offers.filter((offer) => offer.city.name === CITY.name)}/>
+                <MainCardsList offers={offers.filter((offer) => offer.city.name === CITY.name)} onListItemMouseEnterHandler={onListItemMouseEnterHandler} onListItemMouseLeaveHandler={onListItemMouseLeaveHandler}/>
 
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={CITY} offers={offers.filter((offer) => offer.city.name === CITY.name)}/>
+                <Map city={CITY} offers={offers.filter((offer) => offer.city.name === CITY.name)} activeOffer={activeOffer}/>
               </section>
             </div>
           </div>
