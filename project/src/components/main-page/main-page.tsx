@@ -2,6 +2,8 @@ import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Offers} from '../../types/offers';
 import MainCardsList from '../main-cards-list/main-cards-list';
+import {CITY} from '../../mocks/city';
+import Map from '../map/map';
 
 type MainPageProps = {
   placesToStay: number;
@@ -9,6 +11,7 @@ type MainPageProps = {
 }
 
 function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
+
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={AppRoute.Main}/>
@@ -71,11 +74,14 @@ function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <MainCardsList offers={offers}/>
+                <MainCardsList offers={offers.filter((offer) => offer.city.name === CITY.name)}/>
+
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={CITY} offers={offers.filter((offer) => offer.city.name === CITY.name)}/>
+              </section>
             </div>
           </div>
         </div>
