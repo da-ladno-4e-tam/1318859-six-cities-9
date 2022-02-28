@@ -11,6 +11,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const RATINGS = ['5', '4', '3', '2', '1'];
 

@@ -15,7 +15,7 @@ export const reviews: Reviews = [
   },
   {
     'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    'date': 'Mon Feb 21 2022 21:43:58 GMT+0300 (Москва, стандартное время)',
+    'date': 'Mon Nov 21 2021 21:43:58 GMT+0300 (Москва, стандартное время)',
     'id': 2,
     'rating': 3,
     'user': {

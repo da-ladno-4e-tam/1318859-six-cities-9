@@ -4,9 +4,9 @@ import OfferHost from '../offer-host/offer-host';
 import OfferFeatures from '../offer-features/offer-features';
 import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {reviews} from '../../mocks/reviews';
 
 function OfferPage(): JSX.Element {
-
   return (
     <div className="page">
       <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={AppRoute.Room}/>
@@ -75,7 +75,7 @@ function OfferPage(): JSX.Element {
               </div>
               <OfferFeatures/>
               <OfferHost/>
-              <OfferReviews/>
+              <OfferReviews reviews={reviews}/>
             </div>
           </div>
           <section className="property__map map"></section>
