@@ -14,10 +14,10 @@ type MainPageProps = {
 function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
-  const onListItemMouseEnterHandler = (offer: Offer) => {
+  const onListItemMouseEnter = (offer: Offer) => {
     setActiveOffer(offer);
   };
-  const onListItemMouseLeaveHandler = () => {
+  const onListItemMouseLeave = () => {
     setActiveOffer(null);
   };
 
@@ -83,7 +83,7 @@ function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <MainCardsList offers={offers.filter((offer) => offer.city.name === CITY.name)} onListItemMouseEnterHandler={onListItemMouseEnterHandler} onListItemMouseLeaveHandler={onListItemMouseLeaveHandler}/>
+                <MainCardsList offers={offers.filter((offer) => offer.city.name === CITY.name)} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
 
               </div>
             </section>

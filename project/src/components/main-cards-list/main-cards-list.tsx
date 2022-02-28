@@ -3,16 +3,16 @@ import MainCard from '../main-card/main-card';
 
 type MainCardListProps = {
   offers: Offers;
-  onListItemMouseEnterHandler(offer: Offer): void;
-  onListItemMouseLeaveHandler(): void;
+  onListItemMouseEnter(offer: Offer): void;
+  onListItemMouseLeave(): void;
 }
 
-function MainCardsList({offers, onListItemMouseEnterHandler, onListItemMouseLeaveHandler}: MainCardListProps): JSX.Element {
+function MainCardsList({offers, onListItemMouseEnter, onListItemMouseLeave}: MainCardListProps): JSX.Element {
   const onMouseEnterHandler = (offer: Offer) => {
-    onListItemMouseEnterHandler(offer);
+    onListItemMouseEnter(offer);
   };
   const onMouseLeaveHandler = () => {
-    onListItemMouseLeaveHandler();
+    onListItemMouseLeave();
   };
 
   return (

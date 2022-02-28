@@ -1,7 +1,7 @@
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useRef, useEffect} from 'react';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {City, Offer, Offers} from '../../types/offers';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
@@ -28,9 +28,11 @@ function Map({city, offers, activeOffer}: MapProps) {
   });
 
   useEffect(() => {
+    const markers: leaflet.Marker[] = [];
+
     if (map) {
       offers.forEach((offer) => {
-        leaflet
+        const marker = leaflet
           .marker({
             lat: offer.location.latitude,
             lng: offer.location.longitude,
@@ -38,8 +40,12 @@ function Map({city, offers, activeOffer}: MapProps) {
             icon: (activeOffer && offer.location.latitude === activeOffer.location.latitude && offer.location.longitude === activeOffer.location.longitude)
               ? currentCustomIcon
               : defaultCustomIcon,
-          })
-          .addTo(map);
+          });
+        marker.addTo(map);
+        markers.push(marker);
+      });
+      return () => markers.forEach((marker) => {
+        marker.removeFrom(map);
       });
     }
   }, [map, offers]);
