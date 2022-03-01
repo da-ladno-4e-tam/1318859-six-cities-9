@@ -1,7 +1,7 @@
 import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Offer, Offers} from '../../types/offers';
-import MainCardsList from '../main-cards-list/main-cards-list';
+import CardsList from '../cards-list/cards-list';
 import {CITY} from '../../mocks/city';
 import Map from '../map/map';
 import {useState} from 'react';
@@ -83,8 +83,7 @@ function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <MainCardsList offers={offers.filter((offer) => offer.city.name === CITY.name)} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
-
+                <CardsList offers={offers.filter((offer) => offer.city.name === CITY.name)} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
               </div>
             </section>
             <div className="cities__right-section">

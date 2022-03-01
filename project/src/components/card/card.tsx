@@ -2,13 +2,13 @@ import {Offer} from '../../types/offers';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-type MainCardProps = {
+type CardProps = {
   offer: Offer;
   onMouseEnterHandler(offer: Offer): void;
   onMouseLeaveHandler(): void;
 }
 
-function MainCard({offer, onMouseEnterHandler, onMouseLeaveHandler}: MainCardProps): JSX.Element {
+function Card({offer, onMouseEnterHandler, onMouseLeaveHandler}: CardProps): JSX.Element {
   const bookmarkActiveClass = offer.isFavorite ? 'place-card__bookmark-button--active' : '';
   const ratingWidth = String(100 * offer.rating / 5);
 
@@ -58,4 +58,4 @@ function MainCard({offer, onMouseEnterHandler, onMouseLeaveHandler}: MainCardPro
   );
 }
 
-export default MainCard;
+export default Card;
