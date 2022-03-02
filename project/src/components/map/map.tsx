@@ -48,7 +48,7 @@ function Map({city, offers, activeOffer}: MapProps) {
         marker.removeFrom(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, activeOffer]);
 
   return (
     <div

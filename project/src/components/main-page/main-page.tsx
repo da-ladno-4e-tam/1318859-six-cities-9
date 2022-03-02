@@ -83,7 +83,7 @@ function MainPage({placesToStay, offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={offers.filter((offer) => offer.city.name === CITY.name)} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
+                <CardsList offers={offers.filter((offer) => offer.city.name === CITY.name)} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave} isMain/>
               </div>
             </section>
             <div className="cities__right-section">

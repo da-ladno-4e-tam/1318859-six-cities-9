@@ -4,18 +4,19 @@ import {AppRoute} from '../../const';
 
 type CardProps = {
   offer: Offer;
+  isMain?: boolean;
   onMouseEnterHandler(offer: Offer): void;
   onMouseLeaveHandler(): void;
 }
 
-function Card({offer, onMouseEnterHandler, onMouseLeaveHandler}: CardProps): JSX.Element {
+function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardProps): JSX.Element {
   const bookmarkActiveClass = offer.isFavorite ? 'place-card__bookmark-button--active' : '';
   const ratingWidth = String(100 * offer.rating / 5);
 
   return (
     <article
       key={offer.id}
-      className="cities__place-card place-card"
+      className={`${isMain ? 'cities__place-' : 'near-places__'}card place-card`}
       onMouseEnter={() => onMouseEnterHandler(offer)}
       onMouseLeave={() => onMouseLeaveHandler()}
     >
@@ -25,7 +26,7 @@ function Card({offer, onMouseEnterHandler, onMouseLeaveHandler}: CardProps): JSX
           <span>Premium</span>
         </div>
         : null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${isMain ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Room}${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
@@ -50,7 +51,7 @@ function Card({offer, onMouseEnterHandler, onMouseLeaveHandler}: CardProps): JSX
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Room}/${offer.id}`}>{offer.title}</Link>
+          <Link to={`${AppRoute.Rooms}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
