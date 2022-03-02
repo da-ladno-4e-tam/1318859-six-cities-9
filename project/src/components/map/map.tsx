@@ -28,22 +28,19 @@ function Map({city, offers, activeOffer}: MapProps) {
   });
 
   useEffect(() => {
-    const markers: leaflet.Marker[] = [];
 
     if (map) {
-      offers.forEach((offer) => {
-        const marker = leaflet
-          .marker({
-            lat: offer.location.latitude,
-            lng: offer.location.longitude,
-          }, {
-            icon: (activeOffer && offer.location.latitude === activeOffer.location.latitude && offer.location.longitude === activeOffer.location.longitude)
-              ? currentCustomIcon
-              : defaultCustomIcon,
-          });
-        marker.addTo(map);
-        markers.push(marker);
-      });
+      const markers = offers.map((offer) => leaflet
+        .marker({
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
+        }, {
+          icon: (activeOffer && offer.location.latitude === activeOffer.location.latitude && offer.location.longitude === activeOffer.location.longitude)
+            ? currentCustomIcon
+            : defaultCustomIcon,
+        })
+        .addTo(map));
+
       return () => markers.forEach((marker) => {
         marker.removeFrom(map);
       });
