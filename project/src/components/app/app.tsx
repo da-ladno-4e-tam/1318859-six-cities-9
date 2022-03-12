@@ -9,17 +9,16 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import {Offers} from '../../types/offers';
 
 type AppScreenProps = {
-  placesToStay: number;
   offers: Offers;
 }
 
-function App({placesToStay, offers}: AppScreenProps): JSX.Element {
+function App({offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage placesToStay={placesToStay} offers={offers}/>}
+          element={<MainPage/>}
         />
         <Route
           path={AppRoute.SignIn}

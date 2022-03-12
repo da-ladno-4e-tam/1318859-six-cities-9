@@ -5,14 +5,14 @@ import OfferFeatures from '../offer-features/offer-features';
 import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {reviews} from '../../mocks/reviews';
-import {CITY} from '../../mocks/city';
 import Map from '../map/map';
-import {nearOffers} from '../../mocks/near-offers';
 import {useState} from 'react';
 import {Offer} from '../../types/offers';
+import {useAppSelector} from '../../hooks';
 
 function OfferPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+  const {offers} = useAppSelector((state) => state);
 
   const onListItemMouseEnter = (offer: Offer) => {
     setActiveOffer(offer);
@@ -93,7 +93,7 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map city={CITY} offers={nearOffers} activeOffer={activeOffer}/>
+            <Map activeOffer={activeOffer}/>
           </section>
         </section>
         <div className="container">
@@ -101,7 +101,7 @@ function OfferPage(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardsList offers={nearOffers} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
+              <CardsList offers={offers} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
             </div>
           </section>
         </div>

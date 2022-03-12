@@ -43,8 +43,8 @@ export const offers: Offers = [
     'bedrooms': 2,
     'city': {
       'location': {
-        'latitude': 43.370216,
-        'longitude': 7.895168,
+        'latitude': 50.870216,
+        'longitude': 3.395168,
         'zoom': 10,
       },
       'name': 'Paris',
@@ -68,8 +68,8 @@ export const offers: Offers = [
     'isFavorite': false,
     'isPremium': true,
     'location': {
-      'latitude': 42.35514938496378,
-      'longitude': 17.673877537499948,
+      'latitude': 50.770216,
+      'longitude': 3.195168,
       'zoom': 8,
     },
     'maxAdults': 3,
@@ -83,8 +83,8 @@ export const offers: Offers = [
     'bedrooms': 1,
     'city': {
       'location': {
-        'latitude': 33.370216,
-        'longitude': 17.895168,
+        'latitude': 50.870216,
+        'longitude': 3.395168,
         'zoom': 10,
       },
       'name': 'Paris',
@@ -110,8 +110,8 @@ export const offers: Offers = [
     'isFavorite': false,
     'isPremium': false,
     'location': {
-      'latitude': 32.35514938496378,
-      'longitude': 15.673877537499948,
+      'latitude': 50.670216,
+      'longitude': 3.495168,
       'zoom': 8,
     },
     'maxAdults': 2,
@@ -154,8 +154,8 @@ export const offers: Offers = [
     'isFavorite': true,
     'isPremium': true,
     'location': {
-      'latitude': 22.35514938496378,
-      'longitude': 25.673877537499948,
+      'latitude': 23.170216,
+      'longitude': 27.695168,
       'zoom': 8,
     },
     'maxAdults': 20,

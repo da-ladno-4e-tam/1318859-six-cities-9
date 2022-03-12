@@ -2,16 +2,16 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/use-map';
-import {City, Offer, Offers} from '../../types/offers';
+import {Offer} from '../../types/offers';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 type MapProps = {
-  city: City;
-  offers: Offers;
   activeOffer: Offer | null;
 }
 
-function Map({city, offers, activeOffer}: MapProps) {
+function Map({activeOffer}: MapProps) {
+  const {city, offers} = useAppSelector((state) => state);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -48,7 +48,7 @@ function Map({city, offers, activeOffer}: MapProps) {
         marker.removeFrom(map);
       });
     }
-  }, [map, offers]);
+  }, [map, city, offers, activeOffer]);
 
   return (
     <div
