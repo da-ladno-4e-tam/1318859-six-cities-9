@@ -27,7 +27,7 @@ function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardPro
         </div>
         : null}
       <div className={`${isMain ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Room}${offer.id}`}>
+        <Link to={`${AppRoute.Rooms}/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>

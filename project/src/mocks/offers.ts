@@ -125,8 +125,8 @@ export const offers: Offers = [
     'bedrooms': 12,
     'city': {
       'location': {
-        'latitude': 23.370216,
-        'longitude': 27.895168,
+        'latitude': 53.370216,
+        'longitude': 5.895168,
         'zoom': 10,
       },
       'name': 'Dusseldorf',
@@ -154,8 +154,8 @@ export const offers: Offers = [
     'isFavorite': true,
     'isPremium': true,
     'location': {
-      'latitude': 23.170216,
-      'longitude': 27.695168,
+      'latitude': 53.470216,
+      'longitude': 5.795168,
       'zoom': 8,
     },
     'maxAdults': 20,
