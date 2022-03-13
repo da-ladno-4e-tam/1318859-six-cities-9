@@ -9,7 +9,8 @@ const DEFAULT_CITY = CITIES.filter((city) => city.name === 'Paris')[0];
 const DEFAULT_SORT_TYPE = SortType.Default;
 
 const getCurrentCityOffers = (city: City): Offers => offers.filter((offer) => offer.city.name === city.name);
-const getSortedOffersList = (sortType: SortType, offersList: Offers) => {
+
+const getSortedOffersList = (sortType: SortType, offersList: Offers, city: City) => {
   switch (sortType) {
     case SortType.PriceAsc:
       return offersList.sort(
@@ -24,7 +25,7 @@ const getSortedOffersList = (sortType: SortType, offersList: Offers) => {
         (nextOffer, currentOffer) => currentOffer.rating - nextOffer.rating,
       );
     default:
-      return offersList;
+      return getCurrentCityOffers(city);
   }
 };
 
@@ -43,7 +44,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeSortType, (state, action) => {
       state.sortType = action.payload;
-      state.offers = getSortedOffersList(action.payload, state.offers);
+      state.offers = getSortedOffersList(action.payload, state.offers, state.city);
     });
 });
 

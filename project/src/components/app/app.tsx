@@ -6,13 +6,11 @@ import PrivateRoute from '../private-route/private-route';
 import FavoritesPage from '../favorites-page/favorites-page';
 import OfferPage from '../offer-page/offer-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {Offers} from '../../types/offers';
+import {useAppSelector} from '../../hooks';
 
-type AppScreenProps = {
-  offers: Offers;
-}
+function App(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
 
-function App({offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
