@@ -2,14 +2,11 @@ import FavoritesLocationItem from '../favorites-location-item/favorites-location
 import FavoritesFooter from '../favorites-footer/favorites-footer';
 import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Offers} from '../../types/offers';
 import {CITY_NAMES} from '../../const';
+import {useAppSelector} from '../../hooks';
 
-type FavoritesPageProps = {
-  offers: Offers;
-}
-
-function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
 
   return (
     <div className="page">

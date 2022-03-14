@@ -6,11 +6,19 @@ import PrivateRoute from '../private-route/private-route';
 import FavoritesPage from '../favorites-page/favorites-page';
 import OfferPage from '../offer-page/offer-page';
 import NotFoundPage from '../not-found-page/not-found-page';
+import LoadingScreen from '../loading-screen/loading-screen';
 import {useAppSelector} from '../../hooks';
 
 function App(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+  const isCheckedAuth = (authorization: AuthorizationStatus): boolean =>
+    authorization === AuthorizationStatus.NoAuth;
 
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -26,7 +34,7 @@ function App(): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage offers={offers}/>
+              <FavoritesPage/>
             </PrivateRoute>
           }
         />
