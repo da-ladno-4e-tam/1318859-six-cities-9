@@ -16,7 +16,7 @@ function App(): JSX.Element {
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
-      <LoadingScreen />
+      <LoadingScreen/>
     );
   }
   return (
@@ -28,12 +28,16 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.SignIn}
-          element={<LoginPage/>}
+          element={
+            (authorizationStatus === AuthorizationStatus.Auth)
+              ? <MainPage/>
+              : <LoginPage/>
+          }
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <FavoritesPage/>
             </PrivateRoute>
           }
