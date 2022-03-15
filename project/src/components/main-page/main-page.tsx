@@ -7,10 +7,11 @@ import {useState} from 'react';
 import MainCityList from '../main-city-list/main-city-list';
 import MainSorting from '../main-sorting/main-sorting';
 import {useAppSelector} from '../../hooks';
+import {getSortedOffersList} from '../../const';
 
 function MainPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const {city, offers} = useAppSelector((state) => state);
+  const {city, cityOffers, sortType} = useAppSelector((state) => state);
 
   const onListItemMouseEnter = (offer: Offer) => {
     setActiveOffer(offer);
@@ -32,10 +33,14 @@ function MainPage(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city.name}</b>
+              <b className="places__found">{cityOffers.length} places to stay in {city.name}</b>
               <MainSorting/>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={offers.filter((offer) => offer.city.name === city.name)} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
+                <CardsList
+                  offers={getSortedOffersList(sortType, cityOffers.filter((offer) => offer.city.name === city.name))}
+                  onListItemMouseEnter={onListItemMouseEnter}
+                  onListItemMouseLeave={onListItemMouseLeave}
+                />
               </div>
             </section>
             <div className="cities__right-section">
