@@ -37,7 +37,7 @@ function MainPage(): JSX.Element {
               <MainSorting/>
               <div className="cities__places-list places__list tabs__content">
                 <CardsList
-                  offers={getSortedOffersList(sortType, cityOffers.filter((offer) => offer.city.name === city.name))}
+                  offers={getSortedOffersList(sortType, cityOffers)}
                   onListItemMouseEnter={onListItemMouseEnter}
                   onListItemMouseLeave={onListItemMouseLeave}
                 />

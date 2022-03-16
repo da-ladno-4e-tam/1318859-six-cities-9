@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
@@ -30,7 +30,7 @@ function App(): JSX.Element {
           path={AppRoute.SignIn}
           element={
             (authorizationStatus === AuthorizationStatus.Auth)
-              ? <MainPage/>
+              ? <Navigate to={AppRoute.Main}/>
               : <LoginPage/>
           }
         />
