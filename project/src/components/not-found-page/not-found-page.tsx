@@ -1,13 +1,13 @@
 import FavoritesFooter from '../favorites-footer/favorites-footer';
 import Header from '../header/header';
 import {Link} from 'react-router-dom';
-import {AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 
 function NotFoundPage(): JSX.Element {
 
   return (
     <div className="page">
-      <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={null}/>
+      <Header pageUrl={AppRoute.Main}/>
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

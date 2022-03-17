@@ -3,7 +3,7 @@ import OfferReviews from '../offer-reviews/offer-reviews';
 import OfferHost from '../offer-host/offer-host';
 import OfferFeatures from '../offer-features/offer-features';
 import Header from '../header/header';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {reviews} from '../../mocks/reviews';
 import Map from '../map/map';
 import {useState} from 'react';
@@ -23,7 +23,7 @@ function OfferPage(): JSX.Element {
 
   return (
     <div className="page">
-      <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={AppRoute.Room}/>
+      <Header pageUrl={AppRoute.Room}/>
 
       <main className="page__main page__main--property">
         <section className="property">

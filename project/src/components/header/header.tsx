@@ -1,13 +1,12 @@
 import UserNavigation from '../user-navigation/user-navigation';
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 
 type HeaderProps = {
-  authorizationStatus: AuthorizationStatus;
-  pageUrl: AppRoute | null;
+  pageUrl: AppRoute;
 }
 
-function Header({authorizationStatus, pageUrl}: HeaderProps): JSX.Element {
+function Header({pageUrl}: HeaderProps): JSX.Element {
 
   return (
     <header className="header">
@@ -24,8 +23,8 @@ function Header({authorizationStatus, pageUrl}: HeaderProps): JSX.Element {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>}
           </div>
-          {authorizationStatus === AuthorizationStatus.Auth
-            ? <UserNavigation/>
+          {pageUrl !== AppRoute.SignIn
+            ? <UserNavigation pageUrl={pageUrl}/>
             : null}
         </div>
       </div>

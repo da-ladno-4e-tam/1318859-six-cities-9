@@ -1,4 +1,4 @@
-import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
@@ -8,6 +8,8 @@ import OfferPage from '../offer-page/offer-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {useAppSelector} from '../../hooks';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
@@ -20,7 +22,7 @@ function App(): JSX.Element {
     );
   }
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -51,7 +53,7 @@ function App(): JSX.Element {
           element={<NotFoundPage/>}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

@@ -1,5 +1,5 @@
 import Header from '../header/header';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {Offer} from '../../types/offers';
 import CardsList from '../cards-list/cards-list';
 import Map from '../map/map';
@@ -22,7 +22,7 @@ function MainPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={AppRoute.Main}/>
+      <Header pageUrl={AppRoute.Main}/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>

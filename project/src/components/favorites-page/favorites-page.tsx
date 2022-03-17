@@ -1,7 +1,7 @@
 import FavoritesLocationItem from '../favorites-location-item/favorites-location-item';
 import FavoritesFooter from '../favorites-footer/favorites-footer';
 import Header from '../header/header';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {CITY_NAMES} from '../../const';
 import {useAppSelector} from '../../hooks';
 
@@ -10,7 +10,7 @@ function FavoritesPage(): JSX.Element {
 
   return (
     <div className="page">
-      <Header authorizationStatus={AuthorizationStatus.Auth} pageUrl={AppRoute.Favorites}/>
+      <Header pageUrl={AppRoute.Favorites}/>
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

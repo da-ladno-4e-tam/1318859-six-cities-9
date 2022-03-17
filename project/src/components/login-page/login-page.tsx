@@ -1,5 +1,5 @@
 import Header from '../header/header';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {useRef, FormEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
@@ -28,7 +28,7 @@ function LoginPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--login">
-      <Header authorizationStatus={AuthorizationStatus.NoAuth} pageUrl={AppRoute.SignIn}/>
+      <Header pageUrl={AppRoute.SignIn}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
