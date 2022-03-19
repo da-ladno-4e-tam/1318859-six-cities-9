@@ -4,3 +4,8 @@ export type User = {
   isPro: boolean;
   name: string;
 };
+
+export type AuthUser = {
+  avatarUrl: string;
+  email: string;
+};

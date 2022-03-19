@@ -1,8 +1,9 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, changeSortType, loadOffers, requireAuthorization, setError} from './action';
-import {CITIES} from '../const';
-import {City, Offers} from '../types/offers';
-import {SortType, AuthorizationStatus} from '../const';
+import {changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments, requireAuthorization, setError, setAuthUser} from './action';
+import {AuthorizationStatus, CITIES, SortType} from '../const';
+import {City, Offer, Offers} from '../types/offers';
+import {AuthUser} from '../types/user';
+import {Reviews} from '../types/reviews';
 
 const DEFAULT_CITY = CITIES.filter((city) => city.name === 'Paris')[0];
 const DEFAULT_SORT_TYPE = SortType.Default;
@@ -12,21 +13,29 @@ const getCurrentCityOffers = (city: City, offers: Offers): Offers => offers.filt
 type InitialState = {
   city: City,
   offers: Offers,
+  currentOffer: Offer | null,
+  currentOfferComments: Reviews | null,
+  nearOffers: Offers | null,
   cityOffers: Offers,
   sortType: SortType,
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
   error: string,
+  authUser: AuthUser | null,
 }
 
 const initialState: InitialState = {
   city: DEFAULT_CITY,
   offers: [],
+  currentOffer: null,
+  currentOfferComments: [],
+  nearOffers: [],
   cityOffers: [],
   sortType: DEFAULT_SORT_TYPE,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
   error: '',
+  authUser: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -44,11 +53,23 @@ const reducer = createReducer(initialState, (builder) => {
       state.cityOffers = getCurrentCityOffers(state.city, action.payload);
       state.isDataLoaded = true;
     })
+    .addCase(loadOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(loadNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.currentOfferComments = action.payload;
+    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setAuthUser, (state, action) => {
+      state.authUser = action.payload;
     });
 });
 

@@ -1,18 +1,35 @@
 import CardsList from '../cards-list/cards-list';
 import OfferReviews from '../offer-reviews/offer-reviews';
-import OfferHost from '../offer-host/offer-host';
-import OfferFeatures from '../offer-features/offer-features';
 import Header from '../header/header';
 import {AppRoute} from '../../const';
-import {reviews} from '../../mocks/reviews';
 import Map from '../map/map';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Offer} from '../../types/offers';
 import {useAppSelector} from '../../hooks';
+import {useParams} from 'react-router-dom';
+import {fetchNearOffersAction, fetchOfferAction, fetchOfferCommentsAction} from '../../store/api-actions';
+import {store} from '../../store';
+import {loadComments, loadNearOffers, loadOffer} from '../../store/action';
 
 function OfferPage(): JSX.Element {
+  const {nearOffers, currentOffer} = useAppSelector((state) => state);
+  const {id} = useParams<{ id: string }>();
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const {offers} = useAppSelector((state) => state);
+  useEffect(function () {
+    if(!currentOffer && id) {
+      store.dispatch(fetchOfferAction(Number(id)));
+      store.dispatch(fetchOfferCommentsAction(Number(id)));
+      store.dispatch(fetchNearOffersAction(Number(id)));
+
+      return () => {
+        store.dispatch(loadOffer(null));
+        store.dispatch(loadNearOffers(null));
+        store.dispatch(loadComments(null));
+      };
+    }
+  }, [id, currentOffer]);
+
+  const ratingWidth = currentOffer && String(100 * currentOffer.rating / 5);
 
   const onListItemMouseEnter = (offer: Offer) => {
     setActiveOffer(offer);
@@ -29,67 +46,89 @@ function OfferPage(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
+              {currentOffer && currentOffer.images.map((image) =>
+                (
+                  <div key={image} className="property__image-wrapper">
+                    <img className="property__image" src={image} alt="Photo studio"/>
+                  </div>
+                ))}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {
+                currentOffer && currentOffer.isPremium &&
+                <div className="property__mark">
+                  <span>Premium</span>
+                </div>
+              }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {currentOffer &&currentOffer.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className="visually-hidden">{currentOffer && currentOffer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
                 </button>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: `${ratingWidth}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{currentOffer && currentOffer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {currentOffer && currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {currentOffer && currentOffer.bedrooms}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  {currentOffer && currentOffer.maxAdults}
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{currentOffer && currentOffer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
-              <OfferFeatures/>
-              <OfferHost/>
-              <OfferReviews reviews={reviews}/>
+              <div className="property__inside">
+                <h2 className="property__inside-title">What&apos;s inside</h2>
+                <ul className="property__inside-list">
+                  {
+                    currentOffer && currentOffer.goods.map((item) => (
+                      <li className="property__inside-item" key={item}>
+                        {item}
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+              <div className="property__host">
+                <h2 className="property__host-title">Meet the host</h2>
+                <div className="property__host-user user">
+                  {
+                    currentOffer &&
+                    <div className={`property__avatar-wrapper ${currentOffer.host.isPro && 'property__avatar-wrapper--pro'} user__avatar-wrapper`}>
+                      <img className="property__avatar user__avatar" src={currentOffer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
+                    </div>
+                  }
+
+                  <span className="property__user-name">{currentOffer && currentOffer.host.name}</span>
+                  {
+                    currentOffer && currentOffer.host.isPro && <span className="property__user-status">Pro</span>
+                  }
+                </div>
+                <div className="property__description">
+                  <p className="property__text">
+                    {currentOffer && currentOffer.description}
+                  </p>
+                </div>
+              </div>
+              <OfferReviews/>
             </div>
           </div>
           <section className="property__map map">
@@ -101,7 +140,7 @@ function OfferPage(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardsList offers={offers} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
+              <CardsList offers={nearOffers} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
             </div>
           </section>
         </div>
