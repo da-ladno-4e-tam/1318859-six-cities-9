@@ -20,12 +20,10 @@ function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardPro
       onMouseEnter={() => onMouseEnterHandler(offer)}
       onMouseLeave={() => onMouseLeaveHandler()}
     >
-      {offer.isPremium
-        ?
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-        : null}
+      {offer.isPremium &&
+      <div className="place-card__mark">
+        <span>Premium</span>
+      </div>}
       <div className={`${isMain ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Rooms}/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>

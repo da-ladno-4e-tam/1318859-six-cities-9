@@ -13,7 +13,7 @@ function NotFoundPage(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">404 Not Found</h1>
-            <Link to='/'>На главную</Link>
+            <Link to={AppRoute.Main}>На главную</Link>
           </section>
         </div>
       </main>

@@ -13,10 +13,8 @@ import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
-  const isCheckedAuth = (authorization: AuthorizationStatus): boolean =>
-    authorization === AuthorizationStatus.NoAuth;
 
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+  if (!isDataLoaded) {
     return (
       <LoadingScreen/>
     );

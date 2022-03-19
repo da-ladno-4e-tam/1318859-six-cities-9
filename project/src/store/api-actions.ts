@@ -18,7 +18,7 @@ export const clearErrorAction = createAsyncThunk(
   },
 );
 
-export const fetchOfferAction = createAsyncThunk(
+export const fetchOffersAction = createAsyncThunk(
   'data/fetchOffers',
   async () => {
     try {

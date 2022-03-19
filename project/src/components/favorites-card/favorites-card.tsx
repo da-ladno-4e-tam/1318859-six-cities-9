@@ -12,15 +12,13 @@ function FavoritesCard({offer}: FavoritesCardProps): JSX.Element {
 
   return (
     <article key={offer.id} className="favorites__card place-card">
-      {offer.isPremium
-        ?
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-        : null}
+      {offer.isPremium &&
+      <div className="place-card__mark">
+        <span>Premium</span>
+      </div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Room}${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage}width="150" height="110" alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">

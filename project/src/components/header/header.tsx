@@ -15,7 +15,7 @@ function Header({pageUrl}: HeaderProps): JSX.Element {
           <div className="header__left">
             {pageUrl !== AppRoute.Main
               ?
-              <Link className="header__logo-link" to="/">
+              <Link className="header__logo-link" to={AppRoute.Main}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
               :
@@ -23,9 +23,8 @@ function Header({pageUrl}: HeaderProps): JSX.Element {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>}
           </div>
-          {pageUrl !== AppRoute.SignIn
-            ? <UserNavigation pageUrl={pageUrl}/>
-            : null}
+          {pageUrl !== AppRoute.SignIn &&
+          <UserNavigation pageUrl={pageUrl}/>}
         </div>
       </div>
     </header>

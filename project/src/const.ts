@@ -86,6 +86,8 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Favorite = '/favorite',
+  Comments = '/comments',
 }
 
 export enum HTTP_CODE {
