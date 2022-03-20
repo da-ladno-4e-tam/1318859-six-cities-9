@@ -8,4 +8,13 @@ export type Review = {
   user: User;
 }
 
+export type ServerReview = {
+  offerId: string;
+  comment: string;
+  date: string;
+  id: number;
+  rating: number;
+  user: User;
+}
+
 export type Reviews = Review[];

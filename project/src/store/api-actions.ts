@@ -8,7 +8,7 @@ import {APIRoute, AppRoute, AuthorizationStatus, HTTP_CODE, TIMEOUT_SHOW_ERROR} 
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import request from 'axios';
-import {Review, Reviews} from '../types/reviews';
+import {Review, Reviews, ServerReview} from '../types/reviews';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -103,9 +103,10 @@ export const loginAction = createAsyncThunk(
 
 export const postCommentAction = createAsyncThunk(
   'user/postComment',
-  async ({comment}: Review) => {
+  async ({offerId, comment, rating}: ServerReview) => {
     try {
-      const {data} = await api.post<Review>(APIRoute.Comments, {comment});
+      await api.post<Review>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
+      store.dispatch(fetchNearOffersAction(Number(offerId)));
     } catch (error) {
       errorHandle(error);
     }
