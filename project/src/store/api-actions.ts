@@ -1,23 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api, store} from './index';
 import {Offers, Offer} from '../types/offers';
-import {
-  loadOffers,
-  loadOffer,
-  loadNearOffers,
-  redirectToRoute,
-  requireAuthorization,
-  setError,
-  setAuthUser,
-  loadComments
-} from './action';
+import {loadOffers, loadOffer, loadNearOffers, redirectToRoute, requireAuthorization, setError, setAuthUser, loadComments} from './action';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
 import {APIRoute, AppRoute, AuthorizationStatus, HTTP_CODE, TIMEOUT_SHOW_ERROR} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import request from 'axios';
-import {Reviews} from '../types/reviews';
+import {Review, Reviews} from '../types/reviews';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -106,6 +97,17 @@ export const loginAction = createAsyncThunk(
     } catch (error) {
       errorHandle(error);
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
+  },
+);
+
+export const postCommentAction = createAsyncThunk(
+  'user/postComment',
+  async ({comment}: Review) => {
+    try {
+      const {data} = await api.post<Review>(APIRoute.Comments, {comment});
+    } catch (error) {
+      errorHandle(error);
     }
   },
 );

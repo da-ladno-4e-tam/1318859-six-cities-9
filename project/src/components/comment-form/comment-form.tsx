@@ -1,7 +1,13 @@
-import {useState} from 'react';
+import {FormEvent, useRef, useState} from 'react';
 import {RATINGS} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {postCommentAction} from '../../store/api-actions';
+import {Review} from '../../types/reviews';
 
 function CommentForm(): JSX.Element {
+  const commentRef = useRef<HTMLTextAreaElement | null>(null);
+  const {authUser, currentOfferComments} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     rating: '',
     review: '',
@@ -11,8 +17,31 @@ function CommentForm(): JSX.Element {
     setFormData({...formData, [name]: value});
   };
 
+  const onSubmit = (commentData: Review) => {
+    dispatch(postCommentAction(commentData));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (commentRef.current !== null && authUser) {
+      onSubmit({
+        comment: commentRef.current.value,
+        date: new Date().toDateString(),
+        id: (currentOfferComments) ? currentOfferComments.length + 1 : 1,
+        rating: 0,
+        user: {
+          avatarUrl: authUser.avatarUrl,
+          id: authUser.id,
+          isPro: authUser.isPro,
+          name: authUser.name,
+        }
+      });
+    }
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {RATINGS.map((rating) => (
