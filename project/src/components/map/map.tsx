@@ -2,16 +2,17 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/use-map';
-import {Offer} from '../../types/offers';
+import {Offer, Offers} from '../../types/offers';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import {useAppSelector} from '../../hooks';
 
 type MapProps = {
   activeOffer: Offer | null;
+  offers: Offers | null;
 }
 
-function Map({activeOffer}: MapProps) {
-  const {city, offers} = useAppSelector((state) => state);
+function Map({activeOffer, offers}: MapProps) {
+  const {city} = useAppSelector((state) => state);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -30,7 +31,7 @@ function Map({activeOffer}: MapProps) {
   useEffect(() => {
     const markers: leaflet.Marker[] = [];
 
-    if (map) {
+    if (map && offers) {
       offers.forEach((offer) => {
         const marker = leaflet
           .marker({

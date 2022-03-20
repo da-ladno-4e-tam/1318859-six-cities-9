@@ -12,7 +12,7 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-  const {authorizationStatus, isDataLoaded, currentOffer} = useAppSelector((state) => state);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
 
   if (!isDataLoaded) {
     return (
@@ -44,11 +44,7 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={
-            (currentOffer)
-              ? <OfferPage/>
-              : <NotFoundPage/>
-          }
+          element={<OfferPage/>}
         />
         <Route
           path="*"

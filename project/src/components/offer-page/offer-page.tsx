@@ -10,13 +10,14 @@ import {useParams} from 'react-router-dom';
 import {fetchNearOffersAction, fetchOfferAction, fetchOfferCommentsAction} from '../../store/api-actions';
 import {store} from '../../store';
 import {loadComments, loadNearOffers, loadOffer} from '../../store/action';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function OfferPage(): JSX.Element {
   const {nearOffers, currentOffer} = useAppSelector((state) => state);
   const {id} = useParams<{ id: string }>();
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  useEffect(function () {
-    if(!currentOffer && id) {
+  useEffect(() => {
+    if(id) {
       store.dispatch(fetchOfferAction(Number(id)));
       store.dispatch(fetchOfferCommentsAction(Number(id)));
       store.dispatch(fetchNearOffersAction(Number(id)));
@@ -27,7 +28,7 @@ function OfferPage(): JSX.Element {
         store.dispatch(loadComments(null));
       };
     }
-  }, [id, currentOffer]);
+  }, [id]);
 
   const ratingWidth = currentOffer && String(100 * currentOffer.rating / 5);
 
@@ -37,6 +38,10 @@ function OfferPage(): JSX.Element {
   const onListItemMouseLeave = () => {
     setActiveOffer(null);
   };
+
+  if(!currentOffer) {
+    return <NotFoundPage/>;
+  }
 
   return (
     <div className="page">
@@ -49,7 +54,7 @@ function OfferPage(): JSX.Element {
               {currentOffer && currentOffer.images.map((image) =>
                 (
                   <div key={image} className="property__image-wrapper">
-                    <img className="property__image" src={image} alt="Photo studio"/>
+                    <img className="property__image" src={image} alt="Studio"/>
                   </div>
                 ))}
             </div>
@@ -132,7 +137,7 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map activeOffer={activeOffer}/>
+            <Map activeOffer={activeOffer} offers={nearOffers}/>
           </section>
         </section>
         <div className="container">

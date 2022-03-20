@@ -8,7 +8,7 @@ type CardsListProps = {
   onListItemMouseLeave(): void;
 }
 
-function CardsList({offers, isMain, onListItemMouseEnter, onListItemMouseLeave}: CardsListProps): JSX.Element {
+function CardsList({offers, isMain, onListItemMouseEnter, onListItemMouseLeave}: CardsListProps): JSX.Element | null {
   const onMouseEnterHandler = (offer: Offer) => {
     onListItemMouseEnter(offer);
   };
@@ -16,11 +16,11 @@ function CardsList({offers, isMain, onListItemMouseEnter, onListItemMouseLeave}:
     onListItemMouseLeave();
   };
 
-  return (
+  return offers ?
     <>
-      {offers && offers.map((offer:Offer) => <Card offer={offer} key={offer.id} onMouseEnterHandler={onMouseEnterHandler} onMouseLeaveHandler={onMouseLeaveHandler} isMain={isMain}/>)}
+      {offers.map((offer:Offer) => <Card offer={offer} key={offer.id} onMouseEnterHandler={onMouseEnterHandler} onMouseLeaveHandler={onMouseLeaveHandler} isMain={isMain}/>)}
     </>
-  );
+    : null;
 }
 
 export default CardsList;
