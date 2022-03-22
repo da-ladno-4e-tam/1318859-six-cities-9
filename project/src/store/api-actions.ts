@@ -107,7 +107,7 @@ export const postCommentAction = createAsyncThunk(
   async ({offerId, comment, rating}: ServerReview) => {
     try {
       await api.post<Review>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
-      store.dispatch(fetchNearOffersAction(Number(offerId)));
+      store.dispatch(fetchOfferCommentsAction(Number(offerId)));
     } catch (error) {
       errorHandle(error);
     }
