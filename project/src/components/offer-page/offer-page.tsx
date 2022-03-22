@@ -11,6 +11,7 @@ import {fetchNearOffersAction, fetchOfferAction, fetchOfferCommentsAction} from 
 import {store} from '../../store';
 import {loadComments, loadNearOffers, loadOffer} from '../../store/action';
 import NotFoundPage from '../not-found-page/not-found-page';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function OfferPage(): JSX.Element {
   const {nearOffers, currentOffer} = useAppSelector((state) => state);
@@ -39,7 +40,9 @@ function OfferPage(): JSX.Element {
     setActiveOffer(null);
   };
 
-  if(!currentOffer) {
+  if(currentOffer === undefined) {
+    return <LoadingScreen/>;
+  } else if (currentOffer === null) {
     return <NotFoundPage/>;
   }
 

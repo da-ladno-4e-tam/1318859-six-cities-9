@@ -13,7 +13,7 @@ const getCurrentCityOffers = (city: City, offers: Offers): Offers => offers.filt
 type InitialState = {
   city: City,
   offers: Offers,
-  currentOffer: Offer | null,
+  currentOffer: Offer | null | undefined,
   currentOfferComments: Reviews | null,
   nearOffers: Offers | null,
   cityOffers: Offers,
@@ -27,7 +27,7 @@ type InitialState = {
 const initialState: InitialState = {
   city: DEFAULT_CITY,
   offers: [],
-  currentOffer: null,
+  currentOffer: undefined,
   currentOfferComments: [],
   nearOffers: [],
   cityOffers: [],
