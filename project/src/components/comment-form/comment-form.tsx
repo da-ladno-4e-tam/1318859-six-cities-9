@@ -6,7 +6,8 @@ import {postCommentAction} from '../../store/api-actions';
 import {ServerReview} from '../../types/reviews';
 
 function CommentForm(): JSX.Element {
-  const {authUser, currentOfferComments, currentOffer} = useAppSelector((state) => state);
+  const {authUser} = useAppSelector(({APP}) => APP);
+  const {currentOfferComments, currentOffer} = useAppSelector(({DATA}) => DATA);
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     rating: '',

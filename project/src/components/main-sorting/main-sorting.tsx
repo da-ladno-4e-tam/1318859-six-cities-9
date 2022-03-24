@@ -1,11 +1,11 @@
 import {SortType} from '../../const';
-import {changeSortType} from '../../store/action';
+import {changeSortType} from '../../store/app-data/app-data';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useState} from 'react';
 
 function MainSorting(): JSX.Element {
   const [isShownSortingMenu, setShowSortingMenu] = useState<boolean>(false);
-  const {sortType} = useAppSelector((state) => state);
+  const {sortType} = useAppSelector(({DATA}) => DATA);
   const dispatch = useAppDispatch();
 
   const toggleSortingMenu = () => {

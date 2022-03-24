@@ -12,7 +12,7 @@ type MapProps = {
 }
 
 function Map({activeOffer, offers}: MapProps) {
-  const {city} = useAppSelector((state) => state);
+  const {city} = useAppSelector(({DATA}) => DATA);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

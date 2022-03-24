@@ -9,12 +9,12 @@ import {useAppSelector} from '../../hooks';
 import {useParams} from 'react-router-dom';
 import {fetchNearOffersAction, fetchOfferAction, fetchOfferCommentsAction} from '../../store/api-actions';
 import {store} from '../../store';
-import {loadComments, loadNearOffers, loadOffer} from '../../store/action';
+import {loadComments, loadNearOffers, loadOffer} from '../../store/app-data/app-data';
 import NotFoundPage from '../not-found-page/not-found-page';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function OfferPage(): JSX.Element {
-  const {nearOffers, currentOffer} = useAppSelector((state) => state);
+  const {nearOffers, currentOffer} = useAppSelector(({DATA}) => DATA);
   const {id} = useParams<{ id: string }>();
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   useEffect(() => {

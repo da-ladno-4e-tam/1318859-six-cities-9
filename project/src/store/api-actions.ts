@@ -1,7 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api, store} from './index';
 import {Offers, Offer} from '../types/offers';
-import {loadOffers, loadOffer, loadNearOffers, redirectToRoute, requireAuthorization, setError, setAuthUser, loadComments} from './action';
+import {redirectToRoute} from './action';
+import {requireAuthorization} from './user-process/user-process';
+import {changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments} from './app-data/app-data';
+import {setError, setAuthUser} from './app-process/app-process';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
 import {APIRoute, AppRoute, AuthorizationStatus, HTTP_CODE, TIMEOUT_SHOW_ERROR} from '../const';

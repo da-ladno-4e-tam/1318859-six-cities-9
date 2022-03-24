@@ -6,7 +6,7 @@ import {CITY_NAMES} from '../../const';
 import {useAppSelector} from '../../hooks';
 
 function FavoritesPage(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
+  const {offers} = useAppSelector(({DATA}) => DATA);
 
   return (
     <div className="page">

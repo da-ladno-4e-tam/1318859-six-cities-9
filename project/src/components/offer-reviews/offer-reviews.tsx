@@ -5,7 +5,8 @@ import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 
 function OfferReviews(): JSX.Element {
-  const {authorizationStatus, currentOfferComments} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const {currentOfferComments} = useAppSelector(({DATA}) => DATA);
 
   return (
     <section className="property__reviews reviews">

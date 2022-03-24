@@ -11,7 +11,7 @@ import {getSortedOffersList} from '../../const';
 
 function MainPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const {city, cityOffers, sortType} = useAppSelector((state) => state);
+  const {city, cityOffers, sortType} = useAppSelector(({DATA}) => DATA);
 
   const onListItemMouseEnter = (offer: Offer) => {
     setActiveOffer(offer);

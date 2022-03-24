@@ -1,10 +1,10 @@
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CITIES} from '../../const';
-import {changeCity} from '../../store/action';
+import {changeCity} from '../../store/app-data/app-data';
 
 
 function MainCityList(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(({DATA}) => DATA.city);
   const dispatch = useAppDispatch();
 
   return (

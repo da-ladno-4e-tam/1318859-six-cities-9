@@ -96,6 +96,12 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
+}
+
 export const getSortedOffersList = (sortType: SortType, [...offersList]: OffersType) => {
   switch (sortType) {
     case SortType.PriceAsc:

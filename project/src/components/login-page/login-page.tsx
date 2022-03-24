@@ -13,7 +13,7 @@ function LoginPage(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
-  const {city} = useAppSelector((state: State) => state);
+  const {city} = useAppSelector(({DATA}: State) => DATA);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));

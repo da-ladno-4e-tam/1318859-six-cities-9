@@ -11,7 +11,7 @@ type UserNavigationProps = {
 }
 
 function UserNavigation({pageUrl}: UserNavigationProps): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const dispatch = useAppDispatch();
 
   const handleSignOut = (evt: MouseEvent<HTMLElement>) => {
