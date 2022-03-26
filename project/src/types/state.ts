@@ -17,6 +17,7 @@ export type AppData = {
   currentOffer: Offer | null | undefined,
   nearOffers: Offers | null,
   currentOfferComments: Reviews | null,
+  favoriteOffers: Offers | null,
 }
 
 export type AppProcess = {

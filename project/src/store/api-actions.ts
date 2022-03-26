@@ -3,7 +3,7 @@ import {api, store} from './index';
 import {Offers, Offer} from '../types/offers';
 import {redirectToRoute} from './action';
 import {requireAuthorization} from './user-process/user-process';
-import {loadOffers, loadOffer, loadNearOffers, loadComments} from './app-data/app-data';
+import {loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers} from './app-data/app-data';
 import {setError, setAuthUser} from './app-process/app-process';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
@@ -29,6 +29,19 @@ export const fetchOffersAction = createAsyncThunk(
     try {
       const {data} = await api.get<Offers>(APIRoute.Offers);
       store.dispatch(loadOffers(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+
+  },
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk(
+  'data/fetchFavoriteOffers',
+  async () => {
+    try {
+      const {data} = await api.get<Offers>(APIRoute.Favorite);
+      store.dispatch(loadFavoriteOffers(data));
     } catch (error) {
       errorHandle(error);
     }

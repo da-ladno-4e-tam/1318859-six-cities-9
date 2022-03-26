@@ -17,6 +17,7 @@ const initialState: AppData = {
   currentOffer: undefined,
   nearOffers: [],
   currentOfferComments: [],
+  favoriteOffers: [],
 };
 
 export const appData = createSlice({
@@ -36,6 +37,9 @@ export const appData = createSlice({
       state.cityOffers = getCurrentCityOffers(state.city, action.payload);
       state.isDataLoaded = true;
     },
+    loadFavoriteOffers: (state, action) => {
+      state.favoriteOffers = action.payload;
+    },
     loadOffer: (state, action) => {
       state.currentOffer = action.payload;
     },
@@ -48,5 +52,5 @@ export const appData = createSlice({
   },
 });
 
-export const {changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments} = appData.actions;
+export const {changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers} = appData.actions;
 
