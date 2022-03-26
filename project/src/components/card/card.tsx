@@ -1,6 +1,10 @@
 import {Offer} from '../../types/offers';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {Link, Navigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeFavoriteStatusAction, fetchOfferAction} from '../../store/api-actions';
+import {useEffect} from 'react';
+import {store} from '../../store';
 
 type CardProps = {
   offer: Offer;
@@ -10,8 +14,22 @@ type CardProps = {
 }
 
 function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardProps): JSX.Element {
+
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const bookmarkActiveClass = offer.isFavorite ? 'place-card__bookmark-button--active' : '';
   const ratingWidth = String(100 * offer.rating / 5);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    store.dispatch(fetchOfferAction(Number(offer.id)));
+  }, [offer.isFavorite]);
+
+  const handleClick = () => {
+    if(authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(changeFavoriteStatusAction({offerId: offer.id.toString(), isFavorite: !offer.isFavorite}));
+    } else {
+      return <Navigate to={AppRoute.SignIn}/>;
+    }
+  };
 
   return (
     <article
@@ -35,7 +53,7 @@ function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardPro
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${bookmarkActiveClass}`} type="button">
+          <button className={`place-card__bookmark-button button ${bookmarkActiveClass}`} type="button" onClick={handleClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

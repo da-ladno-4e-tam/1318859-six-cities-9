@@ -12,13 +12,14 @@ import {loadFavoriteOffers} from '../../store/app-data/app-data';
 
 function FavoritesPage(): JSX.Element {
   const {favoriteOffers} = useAppSelector(({DATA}) => DATA);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
   useEffect(() => {
     store.dispatch(fetchFavoriteOffersAction());
 
     return () => {
       store.dispatch(loadFavoriteOffers(null));
     };
-  }, []);
+  }, [authorizationStatus]);
 
   return (
     <div className={`page ${!favoriteOffers?.length ? 'page--favorites-empty' : ''}`}>

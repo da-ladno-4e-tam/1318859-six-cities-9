@@ -12,6 +12,7 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import request from 'axios';
 import {Review, Reviews, ServerReview} from '../types/reviews';
+import {ServerFavorite} from '../types/favorite';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -124,6 +125,17 @@ export const postCommentAction = createAsyncThunk(
     try {
       await api.post<Review>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
       store.dispatch(fetchOfferCommentsAction(Number(offerId)));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const changeFavoriteStatusAction = createAsyncThunk(
+  'user/changeFavoriteStatus',
+  async ({offerId, isFavorite}: ServerFavorite) => {
+    try {
+      await api.post<Review>(`${APIRoute.Favorite}/${offerId}/${Number(isFavorite).toString()}`, {isFavorite});
     } catch (error) {
       errorHandle(error);
     }

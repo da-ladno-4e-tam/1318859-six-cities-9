@@ -1,13 +1,18 @@
 import CardsList from '../cards-list/cards-list';
 import OfferReviews from '../offer-reviews/offer-reviews';
 import Header from '../header/header';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import Map from '../map/map';
 import {useEffect, useState} from 'react';
 import {Offer} from '../../types/offers';
-import {useAppSelector} from '../../hooks';
-import {useParams} from 'react-router-dom';
-import {fetchNearOffersAction, fetchOfferAction, fetchOfferCommentsAction} from '../../store/api-actions';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {Navigate, useParams} from 'react-router-dom';
+import {
+  changeFavoriteStatusAction,
+  fetchNearOffersAction,
+  fetchOfferAction,
+  fetchOfferCommentsAction
+} from '../../store/api-actions';
 import {store} from '../../store';
 import {loadComments, loadNearOffers, loadOffer} from '../../store/app-data/app-data';
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -15,7 +20,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 function OfferPage(): JSX.Element {
   const {nearOffers, currentOffer} = useAppSelector(({DATA}) => DATA);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const {id} = useParams<{ id: string }>();
+  const dispatch = useAppDispatch();
+  const bookmarkActiveClass = currentOffer && currentOffer.isFavorite ? 'property__bookmark-button--active' : '';
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   useEffect(() => {
     if(id) {
@@ -30,6 +38,16 @@ function OfferPage(): JSX.Element {
       };
     }
   }, [id]);
+
+  const handleClick = () => {
+    if(authorizationStatus === AuthorizationStatus.Auth) {
+      if (currentOffer) {
+        dispatch(changeFavoriteStatusAction({offerId: currentOffer.id.toString(), isFavorite: !currentOffer.isFavorite}));
+      }
+    } else {
+      return <Navigate to={AppRoute.SignIn}/>;
+    }
+  };
 
   const ratingWidth = currentOffer && String(100 * currentOffer.rating / 5);
 
@@ -74,7 +92,7 @@ function OfferPage(): JSX.Element {
                 <h1 className="property__name">
                   {currentOffer.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button button ${bookmarkActiveClass}`} type="button" onClick={handleClick}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
