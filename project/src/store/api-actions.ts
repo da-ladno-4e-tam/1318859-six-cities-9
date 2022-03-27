@@ -136,6 +136,9 @@ export const changeFavoriteStatusAction = createAsyncThunk(
   async ({offerId, isFavorite}: ServerFavorite) => {
     try {
       await api.post<Review>(`${APIRoute.Favorite}/${offerId}/${Number(isFavorite).toString()}`, {isFavorite});
+      store.dispatch(fetchOfferAction(Number(offerId)));
+      store.dispatch(fetchOffersAction());
+      store.dispatch(fetchFavoriteOffersAction());
     } catch (error) {
       errorHandle(error);
     }

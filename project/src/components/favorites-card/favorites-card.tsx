@@ -1,10 +1,8 @@
 import {Offer} from '../../types/offers';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect} from 'react';
-import {store} from '../../store';
-import {changeFavoriteStatusAction, fetchFavoriteOffersAction} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks';
+import {changeFavoriteStatusAction} from '../../store/api-actions';
 
 type FavoritesCardProps = {
   offer: Offer;
@@ -12,11 +10,7 @@ type FavoritesCardProps = {
 
 function FavoritesCard({offer}: FavoritesCardProps): JSX.Element {
   const ratingWidth = String(100 * offer.rating / 5);
-  const {currentOffer} = useAppSelector(({DATA}) => DATA);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    store.dispatch(fetchFavoriteOffersAction());
-  }, [currentOffer]);
 
   const handleClick = () => {
     dispatch(changeFavoriteStatusAction({offerId: offer.id.toString(), isFavorite: !offer.isFavorite}));

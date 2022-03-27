@@ -2,9 +2,7 @@ import {Offer} from '../../types/offers';
 import {Link, Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeFavoriteStatusAction, fetchOfferAction} from '../../store/api-actions';
-import {useEffect} from 'react';
-import {store} from '../../store';
+import {changeFavoriteStatusAction} from '../../store/api-actions';
 
 type CardProps = {
   offer: Offer;
@@ -19,9 +17,6 @@ function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardPro
   const bookmarkActiveClass = offer.isFavorite ? 'place-card__bookmark-button--active' : '';
   const ratingWidth = String(100 * offer.rating / 5);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    store.dispatch(fetchOfferAction(Number(offer.id)));
-  }, [offer.isFavorite]);
 
   const handleClick = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {

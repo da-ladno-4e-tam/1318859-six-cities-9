@@ -43,6 +43,7 @@ function MainPage(): JSX.Element {
                     offers={getSortedOffersList(sortType, cityOffers)}
                     onListItemMouseEnter={onListItemMouseEnter}
                     onListItemMouseLeave={onListItemMouseLeave}
+                    isMain
                   />
                 </div>
               </section>
