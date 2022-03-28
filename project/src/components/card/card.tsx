@@ -17,7 +17,7 @@ function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardPro
 
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const bookmarkActiveClass = offer.isFavorite ? 'place-card__bookmark-button--active' : '';
-  const ratingWidth = String(100 * offer.rating / 5);
+  const ratingWidth = String(20 * Math.round(offer.rating));
   const dispatch = useAppDispatch();
 
   const handleClick = (evt: MouseEvent<HTMLElement>) => {

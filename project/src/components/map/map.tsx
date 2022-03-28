@@ -7,7 +7,7 @@ import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import {useAppSelector} from '../../hooks';
 
 type MapProps = {
-  activeOffer: Offer | null;
+  activeOffer?: Offer | null;
   offers: Offers | null;
 }
 

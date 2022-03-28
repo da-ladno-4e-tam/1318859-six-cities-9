@@ -3,10 +3,9 @@ import OfferReviews from '../offer-reviews/offer-reviews';
 import Header from '../header/header';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Map from '../map/map';
-import {useEffect, useState} from 'react';
-import {Offer} from '../../types/offers';
+import {MouseEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {Navigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {
   changeFavoriteStatusAction,
   fetchNearOffersAction,
@@ -17,6 +16,7 @@ import {store} from '../../store';
 import {loadComments, loadNearOffers, loadOffer} from '../../store/app-data/app-data';
 import NotFoundPage from '../not-found-page/not-found-page';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {redirectToRoute} from '../../store/action';
 
 function OfferPage(): JSX.Element {
   const {nearOffers, currentOffer} = useAppSelector(({DATA}) => DATA);
@@ -24,7 +24,7 @@ function OfferPage(): JSX.Element {
   const {id} = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const bookmarkActiveClass = currentOffer && currentOffer.isFavorite ? 'property__bookmark-button--active' : '';
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+
   useEffect(() => {
     if(id) {
       store.dispatch(fetchOfferAction(Number(id)));
@@ -39,24 +39,18 @@ function OfferPage(): JSX.Element {
     }
   }, [id]);
 
-  const handleClick = () => {
+  const handleClick = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
     if(authorizationStatus === AuthorizationStatus.Auth) {
       if (currentOffer) {
         dispatch(changeFavoriteStatusAction({offerId: currentOffer.id.toString(), isFavorite: !currentOffer.isFavorite}));
       }
     } else {
-      return <Navigate to={AppRoute.SignIn}/>;
+      dispatch(redirectToRoute(AppRoute.SignIn));
     }
   };
 
-  const ratingWidth = currentOffer && String(100 * currentOffer.rating / 5);
-
-  const onListItemMouseEnter = (offer: Offer) => {
-    setActiveOffer(offer);
-  };
-  const onListItemMouseLeave = () => {
-    setActiveOffer(null);
-  };
+  const ratingWidth = currentOffer && String(20 * Math.round(currentOffer.rating));
 
   if(currentOffer === undefined) {
     return <LoadingScreen/>;
@@ -152,7 +146,7 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map activeOffer={activeOffer} offers={nearOffers}/>
+            <Map offers={nearOffers}/>
           </section>
         </section>
         <div className="container">
@@ -160,7 +154,7 @@ function OfferPage(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardsList offers={nearOffers} onListItemMouseEnter={onListItemMouseEnter} onListItemMouseLeave={onListItemMouseLeave}/>
+              <CardsList offers={nearOffers}/>
             </div>
           </section>
         </div>

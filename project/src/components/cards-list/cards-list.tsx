@@ -4,16 +4,16 @@ import Card from '../card/card';
 type CardsListProps = {
   offers: Offers | null;
   isMain?: boolean;
-  onListItemMouseEnter(offer: Offer): void;
-  onListItemMouseLeave(): void;
+  onListItemMouseEnter?(offer: Offer): void;
+  onListItemMouseLeave?(): void;
 }
 
 function CardsList({offers, isMain, onListItemMouseEnter, onListItemMouseLeave}: CardsListProps): JSX.Element | null {
   const onMouseEnterHandler = (offer: Offer) => {
-    onListItemMouseEnter(offer);
+    onListItemMouseEnter && onListItemMouseEnter(offer);
   };
   const onMouseLeaveHandler = () => {
-    onListItemMouseLeave();
+    onListItemMouseLeave && onListItemMouseLeave();
   };
 
   return offers ?

@@ -6,7 +6,7 @@ type OfferReviewProps = {
 }
 
 function OfferReview({review}: OfferReviewProps): JSX.Element {
-  const ratingWidth = String(100 * review.rating / 5);
+  const ratingWidth = String(20 * Math.round(review.rating));
   const date = new Date(Date.parse(review.date));
   const yearString = date.getFullYear().toString();
   const month = date.getMonth();

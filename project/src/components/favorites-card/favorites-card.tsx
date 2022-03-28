@@ -9,7 +9,7 @@ type FavoritesCardProps = {
 }
 
 function FavoritesCard({offer}: FavoritesCardProps): JSX.Element {
-  const ratingWidth = String(100 * offer.rating / 5);
+  const ratingWidth = String(20 * Math.round(offer.rating));
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
