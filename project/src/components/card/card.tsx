@@ -1,8 +1,10 @@
 import {Offer} from '../../types/offers';
-import {Link, Navigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
+import {MouseEvent} from 'react';
+import {redirectToRoute} from '../../store/action';
 
 type CardProps = {
   offer: Offer;
@@ -18,11 +20,12 @@ function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardPro
   const ratingWidth = String(100 * offer.rating / 5);
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  const handleClick = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
     if(authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(changeFavoriteStatusAction({offerId: offer.id.toString(), isFavorite: !offer.isFavorite}));
     } else {
-      return <Navigate to={AppRoute.SignIn}/>;
+      dispatch(redirectToRoute(AppRoute.SignIn));
     }
   };
 
