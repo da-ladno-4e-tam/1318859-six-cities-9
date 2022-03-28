@@ -50,7 +50,7 @@ function OfferPage(): JSX.Element {
     }
   };
 
-  const ratingWidth = currentOffer && String(20 * Math.round(currentOffer.rating));
+  const ratingWidth = currentOffer && String(100 * (currentOffer.rating / 5));
 
   if(currentOffer === undefined) {
     return <LoadingScreen/>;
@@ -66,7 +66,7 @@ function OfferPage(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {currentOffer.images.map((image) =>
+              {currentOffer.images.slice(0, 6).map((image) =>
                 (
                   <div key={image} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="Studio"/>

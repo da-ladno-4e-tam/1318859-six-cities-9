@@ -57,12 +57,22 @@ function CommentForm(): JSX.Element {
             </label>
           </React.Fragment>))}
       </div>
-      <textarea onChange={fieldChangeHandle} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.review}></textarea>
+      <textarea
+        onChange={fieldChangeHandle}
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        value={formData.review}
+        minLength={50}
+        maxLength={300}
+      >
+      </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b> (but no more than <b className="reviews__text-amount">300 characters</b>).
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.review || !formData.rating}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.review || !formData.rating || formData.review.length < 50 || formData.review.length > 300}>Submit</button>
       </div>
     </form>
   );
