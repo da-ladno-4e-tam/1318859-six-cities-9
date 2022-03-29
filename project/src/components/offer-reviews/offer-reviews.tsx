@@ -17,7 +17,8 @@ function OfferReviews(): JSX.Element {
             Reviews &middot; <span className="reviews__amount">{currentOfferComments.length}</span>
           </h2>
           <ul className="reviews__list">
-            {currentOfferComments
+            {[...currentOfferComments]
+              .sort((nextReview, prevReview) => prevReview.id - nextReview.id)
               .slice(0, 10)
               .map((review: Review) => <OfferReview review={review} key={review.id}/>)}
           </ul>
