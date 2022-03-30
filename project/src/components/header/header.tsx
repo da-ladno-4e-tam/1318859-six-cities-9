@@ -24,7 +24,7 @@ function Header({pageUrl}: HeaderProps): JSX.Element {
               </a>}
           </div>
           {pageUrl !== AppRoute.SignIn &&
-          <UserNavigation pageUrl={pageUrl}/>}
+          <UserNavigation/>}
         </div>
       </div>
     </header>

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
-import {MouseEvent, useState} from 'react';
+import {MouseEvent} from 'react';
 import {redirectToRoute} from '../../store/action';
 
 type CardProps = {
@@ -16,16 +16,14 @@ type CardProps = {
 function Card({offer, isMain, onMouseEnterHandler, onMouseLeaveHandler}: CardProps): JSX.Element {
 
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const bookmarkActiveClass = offer.isFavorite ? 'place-card__bookmark-button--active' : '';
   const ratingWidth = String(20 * Math.round(offer.rating));
   const dispatch = useAppDispatch();
-  const [isFavorite, setIsFavorite] = useState<boolean>(offer.isFavorite);
-  const bookmarkActiveClass = isFavorite ? 'place-card__bookmark-button--active' : '';
 
   const handleClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     if(authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(changeFavoriteStatusAction({offerId: offer.id.toString(), isFavorite: !offer.isFavorite}));
-      setIsFavorite(!offer.isFavorite);
     } else {
       dispatch(redirectToRoute(AppRoute.SignIn));
     }

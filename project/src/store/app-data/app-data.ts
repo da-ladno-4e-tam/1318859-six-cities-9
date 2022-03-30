@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, CITIES, SortType} from '../../const';
 import {AppData} from '../../types/state';
-import {City, Offers} from '../../types/offers';
+import {City, Offer, Offers} from '../../types/offers';
 
 const DEFAULT_CITY = CITIES.filter((city) => city.name === 'Paris')[0];
 const DEFAULT_SORT_TYPE = SortType.Default;
@@ -43,6 +43,17 @@ export const appData = createSlice({
     loadOffer: (state, action) => {
       state.currentOffer = action.payload;
     },
+    updateOffer: (state, action) => {
+      const mapOffer = (offer: Offer) => {
+        if (offer.id === action.payload.id) {
+          return action.payload;
+        }
+        return offer;
+      };
+      state.offers = state.offers.map(mapOffer);
+      state.nearOffers = state.nearOffers?.map(mapOffer) ?? [];
+      state.cityOffers = state.cityOffers?.map(mapOffer) ?? [];
+    },
     loadNearOffers: (state, action) => {
       state.nearOffers = action.payload;
     },
@@ -52,5 +63,5 @@ export const appData = createSlice({
   },
 });
 
-export const {changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers} = appData.actions;
+export const {changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers, updateOffer} = appData.actions;
 

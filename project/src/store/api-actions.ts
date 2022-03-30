@@ -3,7 +3,7 @@ import {api, store} from './index';
 import {Offers, Offer} from '../types/offers';
 import {redirectToRoute} from './action';
 import {requireAuthorization} from './user-process/user-process';
-import {loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers} from './app-data/app-data';
+import {loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers, updateOffer} from './app-data/app-data';
 import {setError, setAuthUser} from './app-process/app-process';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
@@ -13,6 +13,7 @@ import {UserData} from '../types/user-data';
 import request from 'axios';
 import {Review, Reviews, ServerReview} from '../types/reviews';
 import {ServerFavorite} from '../types/favorite';
+import {dropAvatarUrl, dropEmail, saveAvatarUrl, saveEmail} from '../services/user';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -109,6 +110,8 @@ export const loginAction = createAsyncThunk(
     try {
       const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
       saveToken(data.token);
+      saveEmail(data.email);
+      saveAvatarUrl(data.avatarUrl);
       store.dispatch(setAuthUser(data));
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
       store.dispatch(redirectToRoute(AppRoute.Main));
@@ -135,8 +138,8 @@ export const changeFavoriteStatusAction = createAsyncThunk(
   'user/changeFavoriteStatus',
   async ({offerId, isFavorite}: ServerFavorite) => {
     try {
-      await api.post<Review>(`${APIRoute.Favorite}/${offerId}/${Number(isFavorite).toString()}`, {isFavorite});
-      store.dispatch(fetchOffersAction());
+      const {data: offer} = await api.post<Offer>(`${APIRoute.Favorite}/${offerId}/${Number(isFavorite).toString()}`, {isFavorite});
+      store.dispatch(updateOffer(offer));
       store.dispatch(fetchFavoriteOffersAction());
     } catch (error) {
       errorHandle(error);
@@ -146,12 +149,19 @@ export const changeFavoriteStatusAction = createAsyncThunk(
 
 export const logoutAction = createAsyncThunk(
   'user/logout',
-  async () => {
+  async (offerId: number | null) => {
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
+      dropEmail();
+      dropAvatarUrl();
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
       store.dispatch(setAuthUser(null));
+      store.dispatch(fetchOffersAction());
+      if (offerId) {
+        store.dispatch(fetchOfferAction(offerId));
+        store.dispatch(fetchNearOffersAction(offerId));
+      }
     }catch (error) {
       errorHandle(error);
     }
