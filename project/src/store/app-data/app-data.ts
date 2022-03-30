@@ -18,12 +18,16 @@ const initialState: AppData = {
   nearOffers: [],
   currentOfferComments: [],
   favoriteOffers: [],
+  userData: null,
 };
 
 export const appData = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
+    loadUser: (state, action) => {
+      state.userData = action.payload;
+    },
     changeCity: (state, action) => {
       state.city = action.payload;
       state.cityOffers = getCurrentCityOffers(action.payload, state.offers);
@@ -63,5 +67,5 @@ export const appData = createSlice({
   },
 });
 
-export const {changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers, updateOffer} = appData.actions;
+export const {loadUser, changeCity, changeSortType, loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers, updateOffer} = appData.actions;
 

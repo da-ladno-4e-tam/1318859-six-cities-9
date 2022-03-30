@@ -3,7 +3,15 @@ import {api, store} from './index';
 import {Offers, Offer} from '../types/offers';
 import {redirectToRoute} from './action';
 import {requireAuthorization} from './user-process/user-process';
-import {loadOffers, loadOffer, loadNearOffers, loadComments, loadFavoriteOffers, updateOffer} from './app-data/app-data';
+import {
+  loadOffers,
+  loadOffer,
+  loadNearOffers,
+  loadComments,
+  loadFavoriteOffers,
+  updateOffer,
+  loadUser
+} from './app-data/app-data';
 import {setError, setAuthUser} from './app-process/app-process';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
@@ -13,7 +21,6 @@ import {UserData} from '../types/user-data';
 import request from 'axios';
 import {Review, Reviews, ServerReview} from '../types/reviews';
 import {ServerFavorite} from '../types/favorite';
-import {dropAvatarUrl, dropEmail, saveAvatarUrl, saveEmail} from '../services/user';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -110,8 +117,7 @@ export const loginAction = createAsyncThunk(
     try {
       const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
       saveToken(data.token);
-      saveEmail(data.email);
-      saveAvatarUrl(data.avatarUrl);
+      store.dispatch(loadUser(data));
       store.dispatch(setAuthUser(data));
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
       store.dispatch(redirectToRoute(AppRoute.Main));
@@ -153,8 +159,6 @@ export const logoutAction = createAsyncThunk(
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
-      dropEmail();
-      dropAvatarUrl();
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
       store.dispatch(setAuthUser(null));
       store.dispatch(fetchOffersAction());

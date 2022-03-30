@@ -3,6 +3,7 @@ import {AuthorizationStatus, SortType} from '../const';
 import {City, Offer, Offers} from './offers';
 import {Reviews} from './reviews';
 import {AuthUser} from './user';
+import {UserData} from './user-data';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus
@@ -18,6 +19,7 @@ export type AppData = {
   nearOffers: Offers | null,
   currentOfferComments: Reviews | null,
   favoriteOffers: Offers | null,
+  userData: UserData | null,
 }
 
 export type AppProcess = {
