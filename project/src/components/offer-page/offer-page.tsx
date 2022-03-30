@@ -24,6 +24,10 @@ function OfferPage(): JSX.Element {
   const {id} = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const bookmarkActiveClass = currentOffer && currentOffer.isFavorite ? 'property__bookmark-button--active' : '';
+  const mapOffers = nearOffers && [...nearOffers];
+  if (currentOffer) {
+    mapOffers?.push(currentOffer);
+  }
 
   useEffect(() => {
     if(id) {
@@ -44,6 +48,7 @@ function OfferPage(): JSX.Element {
     if(authorizationStatus === AuthorizationStatus.Auth) {
       if (currentOffer) {
         dispatch(changeFavoriteStatusAction({offerId: currentOffer.id.toString(), isFavorite: !currentOffer.isFavorite}));
+        store.dispatch(fetchOfferAction(Number(currentOffer.id)));
       }
     } else {
       dispatch(redirectToRoute(AppRoute.SignIn));
@@ -146,7 +151,7 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={nearOffers}/>
+            <Map offers={mapOffers} activeOffer={currentOffer}/>
           </section>
         </section>
         <div className="container">

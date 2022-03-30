@@ -32,13 +32,16 @@ function Map({activeOffer, offers}: MapProps) {
     const markers: leaflet.Marker[] = [];
 
     if (map && offers) {
+
       offers.forEach((offer) => {
+        const isActive = activeOffer && offer.location.latitude === activeOffer.location.latitude && offer.location.longitude === activeOffer.location.longitude;
+
         const marker = leaflet
           .marker({
             lat: offer.location.latitude,
             lng: offer.location.longitude,
           }, {
-            icon: (activeOffer && offer.location.latitude === activeOffer.location.latitude && offer.location.longitude === activeOffer.location.longitude)
+            icon: (isActive)
               ? currentCustomIcon
               : defaultCustomIcon,
           });
