@@ -7,6 +7,7 @@ import {AuthData} from '../../types/auth-data';
 import {useAppSelector} from '../../hooks';
 import {State} from '../../types/state';
 import {Link} from 'react-router-dom';
+import {handleError} from '../../services/error-handle';
 
 function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -21,13 +22,20 @@ function LoginPage(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+    if (passwordRef.current === null || passwordRef.current.value.includes(' ') || !/^(?=\S*[a-z])(?=\S*\d)\S{2,}$/.test(passwordRef.current.value)) {
+      handleError('invalid password');
+      return;
     }
+
+    if (loginRef.current === null || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginRef.current.value)) {
+      handleError('invalid email');
+      return;
+    }
+
+    onSubmit({
+      login: loginRef.current.value,
+      password: passwordRef.current.value,
+    });
   };
 
   return (
