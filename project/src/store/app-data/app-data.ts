@@ -55,6 +55,7 @@ export const appData = createSlice({
         return offer;
       };
       state.offers = state.offers.map(mapOffer);
+      state.currentOffer = action.payload;
       state.nearOffers = state.nearOffers?.map(mapOffer) ?? [];
       state.cityOffers = state.cityOffers?.map(mapOffer) ?? [];
     },

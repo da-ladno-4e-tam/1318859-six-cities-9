@@ -48,7 +48,6 @@ function OfferPage(): JSX.Element {
     if(authorizationStatus === AuthorizationStatus.Auth) {
       if (currentOffer) {
         dispatch(changeFavoriteStatusAction({offerId: currentOffer.id.toString(), isFavorite: !currentOffer.isFavorite}));
-        store.dispatch(fetchOfferAction(Number(currentOffer.id)));
       }
     } else {
       dispatch(redirectToRoute(AppRoute.SignIn));
