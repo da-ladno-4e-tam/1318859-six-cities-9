@@ -5,8 +5,8 @@ export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg
 export const RATINGS = ['5', '4', '3', '2', '1'];
 export const MAX_REVIEW_LENGTH = 300;
 export const MIN_REVIEW_LENGTH = 50;
-export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER_DEFAULT = '/img/pin.svg';
+export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 export const TIMEOUT_SHOW_ERROR = 2000;
 export const CITIES: City[] = [
   {
