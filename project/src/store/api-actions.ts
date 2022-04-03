@@ -15,7 +15,7 @@ import {
 import {setError, setAuthUser} from './app-process/app-process';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
-import {APIRoute, AppRoute, AuthorizationStatus, HTTP_CODE, TIMEOUT_SHOW_ERROR} from '../const';
+import {APIRoute, AppRoute, AuthorizationStatus, HttpCode, TIMEOUT_SHOW_ERROR} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import request from 'axios';
@@ -103,7 +103,7 @@ export const checkAuthAction = createAsyncThunk(
       store.dispatch(setAuthUser(responce.data));
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
     }catch (error) {
-      if (request.isAxiosError(error) && error.response?.status === HTTP_CODE.UNAUTHORIZED) {
+      if (request.isAxiosError(error) && error.response?.status === HttpCode.Unauthorized) {
         return;
       }
       errorHandle(error);
