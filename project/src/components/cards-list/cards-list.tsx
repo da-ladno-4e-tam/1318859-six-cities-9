@@ -10,10 +10,10 @@ type CardsListProps = {
 
 function CardsList({offers, isMain, onListItemMouseEnter, onListItemMouseLeave}: CardsListProps): JSX.Element | null {
   const onMouseEnterHandler = (offer: Offer) => {
-    onListItemMouseEnter && onListItemMouseEnter(offer);
+    onListItemMouseEnter?.(offer);
   };
   const onMouseLeaveHandler = () => {
-    onListItemMouseLeave && onListItemMouseLeave();
+    onListItemMouseLeave?.();
   };
 
   return offers ?
