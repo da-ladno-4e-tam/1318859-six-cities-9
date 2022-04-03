@@ -27,12 +27,12 @@ function UserNavigation(): JSX.Element {
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
                 style={{
-                  backgroundImage: `url('${userData && userData.avatarUrl}')`,
+                  backgroundImage: `url('${userData?.avatarUrl}')`,
                   borderRadius: '50%',
                 }}
               >
               </div>
-              <span className="header__user-name user__name">{userData && userData.email}</span>
+              <span className="header__user-name user__name">{userData?.email}</span>
             </Link>
           </li>
           <li className="header__nav-item">

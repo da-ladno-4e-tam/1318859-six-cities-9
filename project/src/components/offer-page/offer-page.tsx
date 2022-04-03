@@ -23,7 +23,7 @@ function OfferPage(): JSX.Element {
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const {id} = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const bookmarkActiveClass = currentOffer && currentOffer.isFavorite ? 'property__bookmark-button--active' : '';
+  const bookmarkActiveClass = currentOffer?.isFavorite ? 'property__bookmark-button--active' : '';
   const mapOffers = nearOffers && [...nearOffers];
   if (currentOffer) {
     mapOffers?.push(currentOffer);
