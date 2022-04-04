@@ -40,6 +40,7 @@ export const fetchOffersAction = createAsyncThunk(
       store.dispatch(loadOffers(data));
     } catch (error) {
       errorHandle(error);
+      store.dispatch(loadOffers([]));
     }
 
   },

@@ -28,5 +28,7 @@ export const errorHandle = (error: ErrorType): void => {
         handleError(response.data.error);
         break;
     }
+  } else {
+    handleError(error.message);
   }
 };
