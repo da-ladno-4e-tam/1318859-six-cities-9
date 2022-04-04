@@ -8,6 +8,8 @@ export const MIN_REVIEW_LENGTH = 50;
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 export const TIMEOUT_SHOW_ERROR = 2000;
+export const MAX_OFFER_IMAGES = 6;
+export const MAX_OFFER_COMMENTS = 10;
 export const CITIES: City[] = [
   {
     'location': {

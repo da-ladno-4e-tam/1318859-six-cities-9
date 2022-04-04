@@ -1,7 +1,7 @@
 import CardsList from '../cards-list/cards-list';
 import OfferReviews from '../offer-reviews/offer-reviews';
 import Header from '../header/header';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, MAX_OFFER_IMAGES} from '../../const';
 import Map from '../map/map';
 import {MouseEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -70,7 +70,7 @@ function OfferPage(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {currentOffer.images.slice(0, 6).map((image) =>
+              {currentOffer.images.slice(0, MAX_OFFER_IMAGES).map((image) =>
                 (
                   <div key={image} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="Studio"/>

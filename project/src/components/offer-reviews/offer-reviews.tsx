@@ -2,7 +2,7 @@ import CommentForm from '../comment-form/comment-form';
 import OfferReview from '../offer-review/offer-review';
 import {Review} from '../../types/reviews';
 import {useAppSelector} from '../../hooks';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, MAX_OFFER_COMMENTS} from '../../const';
 
 function OfferReviews(): JSX.Element {
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
@@ -19,7 +19,7 @@ function OfferReviews(): JSX.Element {
           <ul className="reviews__list">
             {[...currentOfferComments]
               .sort((nextReview, prevReview) => prevReview.id - nextReview.id)
-              .slice(0, 10)
+              .slice(0, MAX_OFFER_COMMENTS)
               .map((review: Review) => <OfferReview review={review} key={review.id}/>)}
           </ul>
         </>
