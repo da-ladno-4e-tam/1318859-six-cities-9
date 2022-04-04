@@ -3,7 +3,6 @@ import {FormEvent, useState} from 'react';
 import {MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH, RATINGS} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postCommentAction} from '../../store/api-actions';
-import {ServerReview} from '../../types/reviews';
 
 function CommentForm(): JSX.Element {
   const {authUser} = useAppSelector(({APP}) => APP);
@@ -21,16 +20,11 @@ function CommentForm(): JSX.Element {
     setFormData({...formData, [name]: value});
   };
 
-  const onSubmit = async (commentData: ServerReview) => {
-    setIsDisabledForm(true);
-    await dispatch(postCommentAction(commentData));
-    setIsDisabledForm(false);
-  };
-
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setIsDisabledForm(true);
     if (formData.review.length && authUser && currentOffer) {
-      onSubmit({
+      const responce = await dispatch(postCommentAction({
         offerId: currentOffer.id.toString(),
         comment: formData.review,
         date: new Date().toDateString(),
@@ -42,9 +36,12 @@ function CommentForm(): JSX.Element {
           isPro: authUser.isPro,
           name: authUser.name,
         },
-      });
+      }));
+      if (responce.meta.requestStatus === 'fulfilled') {
+        setFormData({rating: '', review: ''});
+      }
     }
-    setFormData({rating: '', review: ''});
+    setIsDisabledForm(false);
   };
 
   return (

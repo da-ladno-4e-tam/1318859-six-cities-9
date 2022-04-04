@@ -137,6 +137,7 @@ export const postCommentAction = createAsyncThunk(
       store.dispatch(fetchOfferCommentsAction(Number(offerId)));
     } catch (error) {
       errorHandle(error);
+      throw error;
     }
   },
 );
