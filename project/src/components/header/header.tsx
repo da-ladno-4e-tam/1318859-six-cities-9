@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 type HeaderProps = {
-  pageUrl: AppRoute;
+  pageUrl?: AppRoute;
 }
 
 function Header({pageUrl}: HeaderProps): JSX.Element {

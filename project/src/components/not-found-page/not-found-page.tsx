@@ -7,7 +7,7 @@ function NotFoundPage(): JSX.Element {
 
   return (
     <div className="page">
-      <Header pageUrl={AppRoute.Main}/>
+      <Header/>
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

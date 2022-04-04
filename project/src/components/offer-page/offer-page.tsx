@@ -36,7 +36,7 @@ function OfferPage(): JSX.Element {
       store.dispatch(fetchNearOffersAction(Number(id)));
 
       return () => {
-        store.dispatch(loadOffer(null));
+        store.dispatch(loadOffer(undefined));
         store.dispatch(loadNearOffers(null));
         store.dispatch(loadComments(null));
       };
