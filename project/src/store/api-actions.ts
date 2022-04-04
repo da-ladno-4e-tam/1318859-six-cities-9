@@ -102,6 +102,7 @@ export const checkAuthAction = createAsyncThunk(
       const responce = await api.get(APIRoute.Login);
       store.dispatch(setAuthUser(responce.data));
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      store.dispatch(loadUser(responce.data));
     }catch (error) {
       if (request.isAxiosError(error) && error.response?.status === HttpCode.Unauthorized) {
         return;
