@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {FormEvent, useState} from 'react';
 import {MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH, RATINGS} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -15,7 +15,7 @@ function CommentForm(): JSX.Element {
 
   const isValidForm = formData.review !== null && formData.rating !== '' && formData.review.length <= MAX_REVIEW_LENGTH && formData.review.length >= MIN_REVIEW_LENGTH;
   const [isDisabledForm, setIsDisabledForm] = useState(false);
-  const fieldChangeHandle = (evt: { target: { name: any; value: any; }; }) => {
+  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
@@ -51,7 +51,7 @@ function CommentForm(): JSX.Element {
         {RATINGS.map((rating) => (
           <React.Fragment key={`${rating}-stars`}>
             <input
-              onChange={fieldChangeHandle}
+              onChange={handleFieldChange}
               className="form__rating-input visually-hidden"
               name="rating"
               value={rating}
@@ -68,7 +68,7 @@ function CommentForm(): JSX.Element {
           </React.Fragment>))}
       </div>
       <textarea
-        onChange={fieldChangeHandle}
+        onChange={handleFieldChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
